@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<!-- PWA manifest -->
+<link rel="manifest" href="manifest.json">
+
+<!-- iOS için meta etiketleri -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kumar Tuzağı">
+
+<!-- Theme color -->
+<meta name="theme-color" content="#fdbb2d" />
+
+<!-- Viewport ve diğer meta tag'lar zaten var -->
+<!-- PWA manifest -->
+<link rel="manifest" href="manifest.json">
+
+<!-- iOS için meta etiketleri -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kumar Tuzağı">
+<link rel="apple-touch-icon" href="icons/icon-152x152.png">
+
+<!-- Theme color -->
+<meta name="theme-color" content="#fdbb2d" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumar Tuzağı - Gerçekçi Kumar Önleme Oyunu</title>
+    <style>
+        /* Tüm CSS kodları ORJİNAL olarak aynı kalıyor */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #fdbb2d;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #fdbb2d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        
+        .game-mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .mode-btn {
+            padding: 8px 12px;
+            background-color: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .mode-btn:hover, .mode-btn.active {
+            background-color: #2a3a9c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .info-box {
+            background-color: rgba(253, 187, 45, 0.2);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 90px;
+            margin: 3px;
+        }
+        
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #fdbb2d;
+        }
+        
+        .betting-area {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .bet-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .bet-amount {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fdbb2d;
+        }
+        
+        .bet-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .bet-btn {
+            padding: 6px 12px;
+            background-color: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .bet-btn:hover {
+            background-color: #2a3a9c;
+        }
+        
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .game-btn {
+            padding: 10px 20px;
+            background-color: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .game-btn:hover {
+            background-color: #2a3a9c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gambling-btn {
+            background-color: #b21f1f;
+        }
+        
+        .gambling-btn:hover {
+            background-color: #d22f2f;
+        }
+        
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .slot-reel {
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: black;
+            font-weight: bold;
+        }
+        
+        .poker-table {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .poker-card {
+            width: 50px;
+            height: 75px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            color: black;
+            font-weight: bold;
+            border: 2px solid #fdbb2d;
+        }
+        
+        .football-betting {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 15px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .match-options {
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .match-option {
+            padding: 8px 12px;
+            background-color: #1a2a6c;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 90px;
+        }
+        
+        .match-option:hover {
+            background-color: #2a3a9c;
+        }
+        
+        .match-option.selected {
+            background-color: #b21f1f;
+        }
+        
+        .olympus-slots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .olympus-reel {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #8b0000;
+            font-weight: bold;
+            border: 2px solid #ffa500;
+        }
+        
+        /* Penaltı Modu Stilleri */
+        .penalty-game {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 15px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            align-items: center;
+        }
+        
+        .penalty-field {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            background: linear-gradient(to bottom, #1a7a1a, #0d5a0d);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #fff;
+            margin-bottom: 15px;
+        }
+        
+        .goal {
+            width: 100%;
+            height: 80px;
+            background-color: #ffffff;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+        
+        .goal-post {
+            width: 10px;
+            height: 100%;
+            background-color: #ffffff;
+        }
+        
+        .goal-crossbar {
+            width: calc(100% - 60px);
+            height: 10px;
+            background-color: #ffffff;
+            position: absolute;
+            top: 0;
+            left: 30px;
+        }
+        
+        .goalkeeper {
+            width: 60px;
+            height: 80px;
+            background-color: #ff0000;
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .ball {
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+        
+        .shot-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .shot-option {
+            padding: 10px 20px;
+            background-color: #1a2a6c;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .shot-option:hover {
+            background-color: #2a3a9c;
+        }
+        
+        .result-display {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result-title {
+            font-weight: bold;
+            color: #fdbb2d;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .win {
+            color: #4CAF50;
+        }
+        
+        .loss {
+            color: #f44336;
+        }
+        
+        .history {
+            margin-top: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+        }
+        
+        .history-title {
+            font-weight: bold;
+            color: #fdbb2d;
+            margin-bottom: 8px;
+        }
+        
+        .history-list {
+            max-height: 120px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+        
+        .history-item {
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .info-panel {
+            background-color: rgba(253, 187, 45, 0.2);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        .info-title {
+            font-weight: bold;
+            color: #fdbb2d;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .progress-container {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 10px;
+        }
+        
+        .progress-bar {
+            height: 15px;
+            background-color: #1a2a6c;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #fdbb2d;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .end-screen {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        
+        .end-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #fdbb2d;
+        }
+        
+        .restart-btn {
+            padding: 12px 25px;
+            background-color: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .restart-btn:hover {
+            background-color: #2a3a9c;
+            transform: scale(1.05);
+        }
+        
+        .help-resources {
+            margin-top: 20px;
+            background-color: rgba(253, 187, 45, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .help-title {
+            font-weight: bold;
+            color: #fdbb2d;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .scenario-area {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .scenario-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .education-section {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .education-title {
+            font-weight: bold;
+            color: #fdbb2d;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .education-content {
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .education-content h3 {
+            color: #fdbb2d;
+            margin: 12px 0 8px;
+            font-size: 1rem;
+        }
+        
+        .education-content ul {
+            margin-left: 18px;
+            margin-bottom: 12px;
+        }
+        
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        .quiz-question {
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .quiz-option {
+            padding: 8px;
+            background-color: #1a2a6c;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            background-color: #2a3a9c;
+        }
+        
+        .quiz-result {
+            margin-top: 12px;
+            padding: 8px;
+            border-radius: 5px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        
+        .quiz-correct {
+            background-color: rgba(76, 175, 80, 0.3);
+            color: #4CAF50;
+        }
+        
+        .quiz-incorrect {
+            background-color: rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+        
+        .warning-banner {
+            background-color: rgba(178, 31, 31, 0.7);
+            padding: 8px;
+            border-radius: 5px;
+            margin: 8px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .dynamic-info {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .info-trigger {
+            background-color: rgba(253, 187, 45, 0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .continuous-message {
+            background-color: rgba(253, 187, 45, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sound-activation {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: rgba(253, 187, 45, 0.2);
+            border-radius: 10px;
+        }
+        
+        .sound-btn {
+            padding: 12px 25px;
+            background-color: #1a7a1a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .sound-btn:hover {
+            background-color: #2a9a2a;
+            transform: scale(1.05);
+        }
+        
+        /* Mobil için medya sorguları */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .mode-btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            
+            .slot-reel {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .poker-card {
+                width: 45px;
+                height: 65px;
+                font-size: 1.1rem;
+            }
+            
+            .olympus-reel {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .penalty-field {
+                height: 200px;
+            }
+            
+            .goalkeeper {
+                width: 50px;
+                height: 70px;
+            }
+            
+            .ball {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .shot-option {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .bet-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .match-options {
+                flex-direction: column;
+            }
+            
+            .poker-table {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .poker-card {
+                width: 55px;
+                height: 75px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .game-mode-selector {
+                gap: 5px;
+            }
+            
+            .mode-btn {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .slot-reel {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .poker-table {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .poker-card {
+                width: 65px;
+                height: 85px;
+            }
+            
+            .match-option {
+                min-width: 80px;
+                padding: 6px 8px;
+                font-size: 0.8rem;
+            }
+            
+            .olympus-slots {
+                gap: 5px;
+            }
+            
+            .olympus-reel {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Çok küçük ekranlar için */
+        @media (max-width: 320px) {
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                min-width: 100%;
+            }
+            
+            .slot-machine {
+                flex-wrap: wrap;
+            }
+            
+            .slot-reel {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .olympus-slots {
+                justify-content: space-around;
+            }
+            
+            .olympus-reel {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            
+            .poker-table {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .poker-card {
+                width: 60px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kumar Tuzağı</h1>
+            <p class="subtitle">Gerçekçi Kumar Bağımlılığı Önleme Oyunu</p>
+            <div class="info-box">
+                <p>Bu oyun, kumarın gerçekçi risklerini ve sonuçlarını göstermek için tasarlanmıştır. Arada kazançlar elde edebilirsiniz, ancak uzun vadede kaybetme olasılığınız yüksektir.</p>
+            </div>
+            
+            <div class="game-mode-selector">
+                <button class="mode-btn active" id="slotModeBtn" onclick="switchGameMode('slot')">Slot</button>
+                <button class="mode-btn" id="pokerModeBtn" onclick="switchGameMode('poker')">Poker</button>
+                <button class="mode-btn" id="footballModeBtn" onclick="switchGameMode('football')">Futbol Bahis</button>
+                <button class="mode-btn" id="olympusModeBtn" onclick="switchGameMode('olympus')">Olympus</button>
+                <button class="mode-btn" id="penaltyModeBtn" onclick="switchGameMode('penalty')">Penaltı</button>
+                <button class="mode-btn" id="scenarioModeBtn" onclick="switchGameMode('scenario')">Senaryo</button>
+                <button class="mode-btn" id="quizModeBtn" onclick="switchGameMode('quiz')">Bilgi Testi</button>
+                <button class="mode-btn" id="educationModeBtn" onclick="switchGameMode('education')">Eğitim</button>
+            </div>
+        </header>
+        
+        <div class="game-area" id="gameArea">
+            <!-- Ses Etkinleştirme Bölümü -->
+            <div class="sound-activation" id="soundActivation">
+                <p>Ses efektlerini kullanmak için lütfen aşağıdaki butona tıklayın:</p>
+                <button class="sound-btn" onclick="activateSounds()">Sesleri Etkinleştir</button>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Para</div>
+                    <div class="stat-value" id="money">1000 ₺</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Toplam Kazanç</div>
+                    <div class="stat-value" id="totalWin">0 ₺</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Toplam Kayıp</div>
+                    <div class="stat-value" id="totalLoss">0 ₺</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Oyun Sayısı</div>
+                    <div class="stat-value" id="gameCount">0</div>
+                </div>
+            </div>
+            
+            <!-- Sürekli Güncellenen Mesaj Alanı -->
+            <div class="continuous-message" id="continuousMessage">
+                Kumar bağımlılığı ciddi bir sorundur. Yardım almak için 171'i arayabilirsiniz.
+            </div>
+            
+            <!-- Dinamik Bilgi Ekranı -->
+            <div class="dynamic-info" id="dynamicInfo">
+                <div id="dynamicInfoContent"></div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <span class="info-trigger" onclick="showRandomInfo()">Yeni Bilgi Göster</span>
+                </div>
+            </div>
+            
+            <!-- Slot Makinesi -->
+            <div class="gambling-game" id="slotGame">
+                <div class="warning-banner">
+                    ⚠️ Slot makineleri, kumarhanelerde en yüksek kar marjına sahip oyunlardır. "Neredeyse kazandım" hissi oyuncuları daha fazla oynamaya teşvik eder.
+                </div>
+                
+                <div class="betting-area">
+                    <div class="bet-controls">
+                        <div>
+                            <div>Bahis Miktarı:</div>
+                            <div class="bet-amount" id="slotBetAmount">50 ₺</div>
+                        </div>
+                        <div class="bet-buttons">
+                            <button class="bet-btn" onclick="changeBet(-50)">-50</button>
+                            <button class="bet-btn" onclick="changeBet(-10)">-10</button>
+                            <button class="bet-btn" onclick="changeBet(10)">+10</button>
+                            <button class="bet-btn" onclick="changeBet(50)">+50</button>
+                        </div>
+                    </div>
+                    
+                    <div class="slot-machine">
+                        <div class="slot-reel" id="reel1">?</div>
+                        <div class="slot-reel" id="reel2">?</div>
+                        <div class="slot-reel" id="reel3">?</div>
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button class="game-btn gambling-btn" onclick="playSlot()">Döndür!</button>
+                    </div>
+                </div>
+                
+                <div class="info-panel">
+                    <div class="info-title">Slot Makinesi Hakkında:</div>
+                    <p>Slot makineleri, kumarhanelerde en yüksek kar marjına sahip oyunlardan biridir. Geri dönüş oranları genellikle %85-95 arasındadır, yokuuzun vadede her 100 TL'nin 5-15 TL'si kumarhanede kalır. "Neredeyse kazandım" hissi, oyuncuları daha fazla oynamaya teşvik eder.</p>
+                    <p><strong>Gerçek:</strong> Kumar endüstrisi gençlere yakınlaşmak için oyunlardan faydalanır. Oyunlarda yer alan ganimet kutuları (loot box), poker oyunları, slot makineleri gibi unsurlar, gerçek dünyada bir karşılığı yokmuş gibi görünse de gerçek paranın kullanımına teşvik ederek zaman kaybına ve maddi kayıplara sebep olur.</p>
+                </div>
+            </div>
+            
+            <!-- Poker Oyunu -->
+            <div class="gambling-game" id="pokerGame" style="display: none;">
+                <div class="warning-banner">
+                    ⚠️ Kumarhanelerdeki poker masalarında, ev her el için %5-10 komisyon alır. Bu "rake" uzun vadede oyuncuların kaybetmesine neden olur.
+                </div>
+                
+                <div class="betting-area">
+                    <div class="bet-controls">
+                        <div>
+                            <div>Bahis Miktarı:</div>
+                            <div class="bet-amount" id="pokerBetAmount">100 ₺</div>
+                        </div>
+                        <div class="bet-buttons">
+                            <button class="bet-btn" onclick="changePokerBet(-100)">-100</button>
+                            <button class="bet-btn" onclick="changePokerBet(-25)">-25</button>
+                            <button class="bet-btn" onclick="changePokerBet(25)">+25</button>
+                            <button class="bet-btn" onclick="changePokerBet(100)">+100</button>
+                        </div>
+                    </div>
+                    
+                    <div class="poker-table">
+                        <div class="poker-card" id="card1">?</div>
+                        <div class="poker-card" id="card2">?</div>
+                        <div class="poker-card" id="card3">?</div>
+                        <div class="poker-card" id="card4">?</div>
+                        <div class="poker-card" id="card5">?</div>
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button class="game-btn gambling-btn" onclick="playPoker()">Kartları Aç!</button>
+                    </div>
+                </div>
+                
+                <div class="info-panel">
+                    <div class="info-title">Texas Hold'em Hakkında:</div>
+                    <p>Texas Hold'em poker, strateji ve şansın birleştiği bir oyundur. Ancak kumarhanelerdeki poker masalarında, ev her el için bir komisyon (%5-10 arası) alır. Bu "rake" uzun vadede oyuncuların kaybetmesine neden olur. Profesyonel oyuncular bile bu komisyon nedeniyle zorlanır.</p>
+                    <p><strong>Gerçek:</strong> Kumar bağımlılığı, kişinin hayatını olumsuz etkilemesine rağmen kumar oynamaya devam edilmesidir, kontrol edilemez bir dürtüdür. Kumar bağımlıları davranış bozuklukları ve depresyon gibi sorunlar yaşayarak hem kendilerine hem çevrelerine zarar verir.</p>
+                </div>
+            </div>
+            
+            <!-- Futbol Bahis -->
+            <div class="gambling-game" id="footballGame" style="display: none;">
+                <div class="warning-banner">
+                    ⚠️ Bahis şirketleri, oranları matematiksel modellerle belirler ve her maç için %5-15 kar marjı bırakır. Bu uzun vadede bahisçilerin kaybetmesine neden olur.
+                </div>
+                
+                <div class="betting-area">
+                    <div class="bet-controls">
+                        <div>
+                            <div>Bahis Miktarı:</div>
+                            <div class="bet-amount" id="footballBetAmount">100 ₺</div>
+                        </div>
+                        <div class="bet-buttons">
+                            <button class="bet-btn" onclick="changeFootballBet(-100)">-100</button>
+                            <button class="bet-btn" onclick="changeFootballBet(-25)">-25</button>
+                            <button class="bet-btn" onclick="changeFootballBet(25)">+25</button>
+                            <button class="bet-btn" onclick="changeFootballBet(100)">+100</button>
+                        </div>
+                    </div>
+                    
+                    <div class="football-betting">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <h3>Galatasaray vs Fenerbahçe</h3>
+                            <p>Maç Sonucu Tahmini Yapın</p>
+                        </div>
+                        
+                        <div class="match-options">
+                            <div class="match-option" id="option1" onclick="selectFootballOption(0)">
+                                <div>Galatasaray</div>
+                                <div>2.5 Oran</div>
+                            </div>
+                            <div class="match-option" id="option2" onclick="selectFootballOption(1)">
+                                <div>Beraberlik</div>
+                                <div>3.2 Oran</div>
+                            </div>
+                            <div class="match-option" id="option3" onclick="selectFootballOption(2)">
+                                <div>Fenerbahçe</div>
+                                <div>2.7 Oran</div>
+                            </div>
+                        </div>
+                        
+                        <div class="game-controls">
+                            <button class="game-btn gambling-btn" onclick="playFootball()">Bahis Yap!</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-panel">
+                    <div class="info-title">Futbol Bahisleri Hakkında:</div>
+                    <p>Bahis şirketleri, oranları matematiksel modellerle belirler ve her maç için %5-15 arasında bir kar marjı bırakır. Bu, uzun vadede bahisçilerin kaybetmesine neden olur. Ayrıca, beklenmedik sonuçlar (sakatlıklar, hakem hataları vb.) tahminleri zorlaştırır. Futbol bahislerinde kazanmak için %55'in üzerinde doğru tahmin yapmak gerekir ki bu çok zordur.</p>
+                    <p><strong>Gerçek:</strong> Kumar oynamak çok boyutlu bir problemdir. Sorun sadece para kaybetmekle sınırlı değildir. Kumar bağımlılığı sosyal ve ruhsal anlamda birçok zarara neden olur. Sorumluluklarını yerine getiremez, maddi kayıp yaşayarak kendisine, ailesine ve çevresine zarar verir.</p>
+                </div>
+            </div>
+            
+            <!-- Gates of Olympus -->
+            <div class="gambling-game" id="olympusGame" style="display: none;">
+                <div class="warning-banner">
+                    ⚠️ Bu tür online slot oyunları, yüksek varyanslı oyunlardır. Nadiren büyük kazançlar verirken, çoğu zaman küçük kayıplara neden olur.
+                </div>
+                
+                <div class="betting-area">
+                    <div class="bet-controls">
+                        <div>
+                            <div>Bahis Miktarı:</div>
+                            <div class="bet-amount" id="olympusBetAmount">50 ₺</div>
+                        </div>
+                        <div class="bet-buttons">
+                            <button class="bet-btn" onclick="changeOlympusBet(-50)">-50</button>
+                            <button class="bet-btn" onclick="changeOlympusBet(-10)">-10</button>
+                            <button class="bet-btn" onclick="changeOlympusBet(10)">+10</button>
+                            <button class="bet-btn" onclick="changeOlympusBet(50)">+50</button>
+                        </div>
+                    </div>
+                    
+                    <div class="olympus-slots">
+                        <div class="olympus-reel" id="olympusReel1">⚡</div>
+                        <div class="olympus-reel" id="olympusReel2">⚡</div>
+                        <div class="olympus-reel" id="olympusReel3">⚡</div>
+                        <div class="olympus-reel" id="olympusReel4">⚡</div>
+                        <div class="olympus-reel" id="olympusReel5">⚡</div>
+                        <div class="olympus-reel" id="olympusReel6">⚡</div>
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button class="game-btn gambling-btn" onclick="playOlympus()">Zeus'un Yıldırımını Çağır!</button>
+                    </div>
+                </div>
+                
+                <div class="info-panel">
+                    <div class="info-title">Gates of Olympus Hakkında:</div>
+                    <p>Bu tür online slot oyunları, yüksek varyanslı (volatility) oyunlardır. Nadiren büyük kazançlar verirken, çoğu zaman küçük kayıplara neden olur. Oyunun RTP (Return to Player) oranı genellikle %96 civarındadır, yani uzun vadede her 100 TL'lik bahsin 4 TL'si kaybedilir. "Bonus" ve "free spin" özellikleri oyuncuyu daha fazla oynamaya teşvik eder.</p>
+                    <p><strong>Gerçek:</strong> Kumar bağımlılığı ilk olarak eğlence gibi gözükse de kontrolün yavaş yavaş azalması, kişinin ruh hâlinin kötüye gitmesi ve son olarak da kişinin kontrolü kaybetmesi ile gerçekleşir. Kumar oynama davranışının erken yaşta benimsenmesi de bağımlı olma ihtimalini artırır.</p>
+                </div>
+            </div>
+            
+            <!-- Penaltı Modu -->
+            <div class="gambling-game" id="penaltyGame" style="display: none;">
+                <div class="warning-banner">
+                    ⚠️ Penaltı bahisleri, %70-80 gol olma ihtimaliyle yüksek kazanç vaat eder, ancak uzun vadede bahis şirketleri her zaman kazanır.
+                </div>
+                
+                <div class="betting-area">
+                    <div class="bet-controls">
+                        <div>
+                            <div>Bahis Miktarı:</div>
+                            <div class="bet-amount" id="penaltyBetAmount">100 ₺</div>
+                        </div>
+                        <div class="bet-buttons">
+                            <button class="bet-btn" onclick="changePenaltyBet(-100)">-100</button>
+                            <button class="bet-btn" onclick="changePenaltyBet(-25)">-25</button>
+                            <button class="bet-btn" onclick="changePenaltyBet(25)">+25</button>
+                            <button class="bet-btn" onclick="changePenaltyBet(100)">+100</button>
+                        </div>
+                    </div>
+                    
+                    <div class="penalty-game">
+                        <div class="penalty-field">
+                            <div class="goal">
+                                <div class="goal-post"></div>
+                                <div class="goal-post"></div>
+                                <div class="goal-crossbar"></div>
+                            </div>
+                            <div class="goalkeeper" id="goalkeeper">Kaleci</div>
+                            <div class="ball" id="ball"></div>
+                        </div>
+                        
+                        <div class="shot-options">
+                            <div class="shot-option" onclick="takePenalty('left')">Sol Köşe</div>
+                            <div class="shot-option" onclick="takePenalty('center')">Orta</div>
+                            <div class="shot-option" onclick="takePenalty('right')">Sağ Köşe</div>
+                        </div>
+                        
+                        <div class="game-controls">
+                            <button class="game-btn gambling-btn" onclick="takeRandomPenalty()">Rastgele Atış Yap!</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-panel">
+                    <div class="info-title">Penaltı Bahisleri Hakkında:</div>
+                    <p>Penaltı bahisleri, spor bahislerinde en popüler canlı bahis türlerinden biridir. Genellikle %70-80 gol olma ihtimaliyle yüksek kazanç vaat eder, ancak bahis şirketleri oranları matematiksel modellerle belirler ve uzun vadede her zaman kazançlı çıkarlar. Penaltı atışları psikolojik faktörlerden büyük ölçüde etkilenir ve tahmin edilmesi zordur.</p>
+                    <p><strong>Gerçek:</strong> Spor bahisleri, özellikle canlı bahisler, bağımlılık yapma potansiyeli en yüksek kumar türlerinden biridir. Hızlı sonuçlanması ve sürekli devam eden maçlar nedeniyle oyuncular kontrolü kaybedebilir ve büyük miktarlarda para kaybedebilir.</p>
+                </div>
+            </div>
+            
+            <!-- Senaryo Modu -->
+            <div class="gambling-game" id="scenarioGame" style="display: none;">
+                <div class="scenario-area">
+                    <div class="scenario-text" id="scenarioText">
+                        Arkadaşların sana yeni bir çevrimiçi kumar oyunundan bahsediyor. İlk oynayışta kazanma şansın yüksekmiş. Ne yaparsın?
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button class="game-btn gambling-btn" id="choice1" onclick="makeChoice(0)">Oyunu dene, belki şanslısındır</button>
+                        <button class="game-btn" id="choice2" onclick="makeChoice(1)">Reddet ve arkadaşlarına kumar risklerini anlat</button>
+                    </div>
+                </div>
+                
+                <div class="info-panel">
+                    <div class="info-title">Kumar Bağımlılığı Hakkında:</div>
+                    <p>Kumar bağımlılığı, DSM-5'e göre bir davranışsal bağımlılık türüdür. Kişi kumar oynamayı kontrol edemez ve olumsuz sonuçlara rağmen oynamaya devam eder. Kumar bağımlılığının tedavisi mümkündür ve yardım almak için 171 Kumar Bağımlılığı Danışma Hattı'nı arayabilirsiniz.</p>
+                </div>
+            </div>
+            
+            <!-- Bilgi Testi Modu -->
+            <div class="gambling-game" id="quizGame" style="display: none;">
+                <div class="quiz-container">
+                    <div class="quiz-question" id="quizQuestion">Soru buraya gelecek</div>
+                    <div class="quiz-options" id="quizOptions">
+                        <!-- Seçenekler buraya gelecek -->
+                    </div>
+                    <div class="quiz-result" id="quizResult">
+                        <!-- Sonuç buraya gelecek -->
+                    </div>
+                    <div class="game-controls">
+                        <button class="game-btn" onclick="nextQuestion()" id="nextQuestionBtn" style="display: none;">Sonraki Soru</button>
+                    </div>
+                </div>
+                
+                <div class="info-panel">
+                    <div class="info-title">Kumar Bilginizi Test Edin:</div>
+                    <p>Bu test, kumar bağımlılığı hakkındaki bilginizi ölçmek için tasarlanmıştır. Doğru cevaplar için bilgilendirme panellerini okuyabilirsiniz.</p>
+                </div>
+            </div>
+            
+            <!-- Eğitim Modu -->
+            <div class="gambling-game" id="educationGame" style="display: none;">
+                <div class="education-section">
+                    <div class="education-title">Kumar Bağımlılığı Hakkında Bilgiler</div>
+                    <div class="education-content">
+                        <h3>Kumar Nedir?</h3>
+                        <p>Bir şey kazanmanın "ihtimali" için para veya değerli bir şeyin riske atıldığı her türlü aktivite kumar olarak kabul edilebilir. Kumarda para, zaman ve emek kaybı yaşanır. Dolayısıyla üzerine para konulan her türlü oyun ve aktivitenin kumara dönüştüğünü söyleyebiliriz.</p>
+                        
+                        <h3>Neler Kumardır?</h3>
+                        <ul>
+                            <li>Tamamen tesadüfe bağlı, beceri gerektirmeyen, bazen bir kasa ya da makinee karşı oynanan şans ve talih oyunları</li>
+                            <li>Kişinin becerisine bağlı bir alanda bile olsa bahis üzerine oynanan oyunlar</li>
+                            <li>Kazananın karşılığında para aldığı spor faaliyeti ya da oyunlar</li>
+                        </ul>
+                        
+                        <h3>Kumar Bağımlılığı Nedir?</h3>
+                        <p>Kumar bağımlılığı, kişinin hayatını olumsuz etkilemesine rağmen kumar oynamaya devam edilmesidir, kontrol edilemez bir dürtüdür. Kumar bağımlılık yapar çünkü beynin ödül sistemini bağımlılık yapan maddeler gibi uyarır.</p>
+                        
+                        <h3>Kumar Bağımlılığı Ne Değildir?</h3>
+                        <p>"Paran varsa kumar oynamak sorun değil" söylemi gerçek değildir. Kumar oynayan kişinin, çevresine zarar vermesinin tek nedeni para değildir. Kumar oynamak çok boyutlu bir problemdir. Sorun sadece para kaybetmekle sınırlı değildir. Kumar bağımlılığı sosyal ve ruhsal anlamda birçok zarara neden olur.</p>
+                        
+                        <h3>Kumar Neden Bu Kadar Tehlikeli?</h3>
+                        <ul>
+                            <li>Kolay erişilebilir olması</li>
+                            <li>İnternet sitelerinde ve dizi/film platformlarında çıkan pop-up reklamlar</li>
+                            <li>Eğlence gibi görülmesi</li>
+                            <li>Oyunların içinde gizlenen kumar ögeleri</li>
+                            <li>Oyunlarda yer alan, özellikle loot box (ganimet kutusu), poker oyunları, slot makineleri gibi unsurların, gerçek dünyada bir karşılığı yokmuş gibi görünse de gerçek paranın kullanımına teşvik ederek zaman kaybına ve maddi kayıplara sebep olması</li>
+                        </ul>
+                        
+                        <h3>Kumar Bağımlılığının Olumsuz Sonuçları</h3>
+                        <ul>
+                            <li>Alkol/madde bağımlılığı edinme olasılığını artırır</li>
+                            <li>Sorumluluklarını yerine getiremez</li>
+                            <li>Maddi kayıp yaşayarak kendisine, ailesine ve çevresine zarar verir</li>
+                            <li>Kumara ayrılan zaman ve olumsuz sonuçları nedeniyle sosyal ilişkileri zarar görür</li>
+                        </ul>
+                        
+                        <h3>Yardım Kaynakları</h3>
+                        <p>Kumar bağımlılığı ile mücadele ediyorsanız veya bir yakınınızın bağımlı olduğunu düşünüyorsanız, aşağıdaki kaynaklardan yardım alabilirsiniz:</p>
+                        <ul>
+                            <li><strong>Kumar Bağımlılığı Danışma Hattı:</strong> 171 (7/24 ücretsiz danışma hattı)</li>
+                            <li><strong>Yeşilay Danışmanlık Merkezi (YEDAM):</strong> 115 (Ücretsiz danışmanlık hizmeti)</li>
+                            <li><strong>Okul Rehberlik Servisi:</strong> Okulunuzdaki rehber öğretmenle görüşebilirsiniz</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-display" id="resultDisplay">
+                <div class="result-title" id="resultTitle">Sonuç</div>
+                <div id="resultText"></div>
+            </div>
+            
+            <div class="history">
+                <div class="history-title">Oyun Geçmişi</div>
+                <div class="history-list" id="historyList">
+                    <!-- Oyun geçmişi buraya eklenecek -->
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+                <div style="text-align: center; margin-top: 5px;">Oyun İlerlemesi</div>
+            </div>
+        </div>
+        
+        <div class="end-screen" id="endScreen">
+            <h2 class="end-title" id="endTitle">Oyun Bitti!</h2>
+            <p id="endMessage">Paramın tamamını kaybettin. Bu, kumarın gerçek yüzünü gösteriyor - kısa vadeli kazançlar uzun vadeli kayıplara yol açar.</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Toplam Kazanç</div>
+                    <div class="stat-value" id="finalWin">0 ₺</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Toplam Kayıp</div>
+                    <div class="stat-value" id="finalLoss">0 ₺</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Net Sonuç</div>
+                    <div class="stat-value" id="netResult">0 ₺</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Oyun Sayısı</div>
+                    <div class="stat-value" id="finalGameCount">0</div>
+                </div>
+            </div>
+            
+            <div class="help-resources">
+                <div class="help-title">Kumar Bağımlılığı Tedavisi Hakkında:</div>
+                <p>Kumar bağımlılığının tedavisi mümkündür. Etkinliği kanıtlanmış tedavi yöntemleri arasında motivasyonel görüşme ve bilişsel davranışçı terapi (BDT) yer alır. İlaç tedavileri arasında opioid antagonistleri (naltrekson, nalmefen), antidepressanlar ve duygudurum düzenleyiciler kullanılmaktadır.</p>
+                
+                <div class="help-title">Yardım Kaynakları:</div>
+                <p>Kumar bağımlılığı ile mücadele ediyorsanız veya bir yakınınızın bağımlı olduğunu düşünüyorsanız, aşağıdaki kaynaklardan yardım alabilirsiniz:</p>
+                <ul>
+                    <li><strong>Kumar Bağımlılığı Danışma Hattı:</strong> 171 (7/24 ücretsiz danışma hattı)</li>
+                    <li><strong>Yeşilay Danışmanlık Merkezi (YEDAM):</strong> 115 (Ücretsiz danışmanlık hizmeti)</li>
+                    <li><strong>Okul Rehberlik Servisi:</strong> Okulunuzdaki rehber öğretmenle görüşebilirsiniz</li>
+                </ul>
+            </div>
+            
+            <button class="restart-btn" onclick="restartGame()">Tekrar Oyna</button>
+        </div>
+    </div>
+
+    <!-- Ses Efektleri -->
+    <audio id="slotSpinSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-spin-1086.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="slotWinSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="slotLoseSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-lose-1087.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="cardFlipSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-playing-card-game-slide-1069.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="pokerWinSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-coin-1996.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="pokerLoseSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-casino-bling-achievement-667.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="crowdSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-small-crowd-cheer-and-applause-501.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="whistleSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-referee-whistle-481.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="goalSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-crowd-cheering-up-at-stadium-479.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="missSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-crowd-disappointed-sigh-476.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="thunderSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-thunder-rumble-1230.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="olympusWinSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magical-coin-win-1936.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="olympusLoseSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-game-over-213.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="kickSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-football-kick-3117.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="penaltyGoalSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-sports-crowd-cheer-475.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="penaltySaveSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-crowd-groan-479.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="positiveSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="negativeSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="correctSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="wrongSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-warning-alarm-buzzer-991.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="gameOverSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-sad-game-over-trombone-471.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // SES YÖNETİMİ - BASİT VE ETKİLİ
+        let soundsEnabled = false;
+        
+        function playSound(soundId) {
+            if (!soundsEnabled) return;
+            
+            try {
+                const sound = document.getElementById(soundId);
+                if (sound) {
+                    // Ses öğesini klonla
+                    const soundClone = sound.cloneNode();
+                    soundClone.volume = 0.7;
+                    
+                    // Promise ile çal
+                    const playPromise = soundClone.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log("Ses çalınamadı:", error);
+                        });
+                    }
+                }
+            } catch (error) {
+                console.log("Ses çalma hatası:", error);
+            }
+        }
+        
+function activateSounds() {
+    soundsEnabled = true;
+    document.getElementById('soundActivation').style.display = 'none';
+    
+    // Tüm sesleri önceden yükle - GÜNCELLENMİŞ
+    const audioElements = document.querySelectorAll('audio');
+    audioElements.forEach(audio => {
+        audio.load();
+        // Ses öğelerine otomatik oynatma izni ver
+        audio.setAttribute('preload', 'auto');
+    });
+    
+    // Test sesi çal - GÜNCELLENMİŞ
+    setTimeout(() => {
+        const testAudio = new Audio();
+        testAudio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3';
+        testAudio.volume = 0.5;
+        
+        // Kullanıcı etkileşimi olmadan çalabilmek için
+        document.body.addEventListener('click', function playTestSound() {
+            testAudio.play().then(() => {
+                console.log("Test sesi çalındı");
+            }).catch(error => {
+                console.log("Ses çalınamadı:", error);
+            });
+            document.body.removeEventListener('click', playTestSound);
+        });
+        
+        // Otomatik mesaj göster
+        const message = document.getElementById('continuousMessage');
+        if (message) {
+            message.textContent = "Sesler etkinleştirildi! Artık oyun seslerini duyabilirsiniz.";
+        }
+    }, 100);
+}
+
+        // ORJİNAL OYUN KODU - DEĞİŞMEDEN KALIYOR
+        // Oyun durumu
+        const gameState = {
+            money: 1000,
+            totalWin: 0,
+            totalLoss: 0,
+            gameCount: 0,
+            currentMode: 'slot',
+            slotBet: 50,
+            pokerBet: 100,
+            footballBet: 100,
+            olympusBet: 50,
+            penaltyBet: 100,
+            selectedFootballOption: null,
+            gameOver: false,
+            infoCount: 0
+        };
+        
+        // Slot sembolleri ve kazanç oranları
+        const slotSymbols = ['🍒', '🍋', '🍊', '🍇', '🔔', '⭐', '7️⃣'];
+        const slotPayouts = {
+            '🍒🍒🍒': 3,
+            '🍋🍋🍋': 5,
+            '🍊🍊🍊': 7,
+            '🍇🍇🍇': 10,
+            '🔔🔔🔔': 15,
+            '⭐⭐⭐': 25,
+            '7️⃣7️⃣7️⃣': 100
+        };
+        
+        // Poker eli kazançları - GERÇEKÇİ ORANLAR
+        const pokerHands = [
+            { name: "Hiçbir şey", multiplier: 0, probability: 50.1 },
+            { name: "Çift", multiplier: 1, probability: 42.3 },
+            { name: "İki Çift", multiplier: 2, probability: 4.75 },
+            { name: "Üçlü", multiplier: 3, probability: 2.11 },
+            { name: "Straight", multiplier: 5, probability: 0.39 },
+            { name: "Flush", multiplier: 10, probability: 0.20 },
+            { name: "Full House", multiplier: 20, probability: 0.14 },
+            { name: "Four of a Kind", multiplier: 50, probability: 0.024 },
+            { name: "Straight Flush", multiplier: 100, probability: 0.0014 },
+            { name: "Royal Flush", multiplier: 500, probability: 0.00015 }
+        ];
+        
+        // Gates of Olympus sembolleri ve kazançları
+        const olympusSymbols = ['⚡', '🔥', '🌊', '🌪️', '🏛️', '👑', '⚜️'];
+        const olympusPayouts = {
+            '⚡⚡⚡⚡⚡⚡': 100,
+            '🔥🔥🔥🔥🔥': 50,
+            '🌊🌊🌊🌊': 25,
+            '🌪️🌪️🌪️': 10,
+            '🏛️🏛️🏛️': 5,
+            '👑👑': 2,
+            '⚜️⚜️': 1.5
+        };
+        
+        // Senaryolar
+        const scenarios = [
+            {
+                text: "Arkadaşların sana yeni bir çevrimiçi kumar oyunundan bahsediyor. İlk oynayışta kazanma şansın yüksekmiş. Ne yaparsın?",
+                choices: [
+                    { 
+                        text: "Oyunu dene, belki şanslısındır", 
+                        gambling: true,
+                        result: "20 TL kaybettin! İlk başta kazançlı gibi görünse de kumar uzun vadede kayba neden olur."
+                    },
+                    { 
+                        text: "Reddet ve arkadaşlarına kumar risklerini anlat", 
+                        gambling: false,
+                        result: "Doğru karar! Kumar risklerini anlatarak arkadaşlarını da korumuş oldun."
+                    }
+                ]
+            },
+            {
+                text: "Sınav haftasındasın ve çok streslisin. Bir arkadaşın stres atman için bahis sitesine girmeni öneriyor. Ne yaparsın?",
+                choices: [
+                    { 
+                        text: "Stres atmak için birkaç bahis yap", 
+                        gambling: true,
+                        result: "50 TL kaybettin ve sınavlarına çalışmak için zaman kaybettin. Kumar stresi azaltmaz, artırır!"
+                    },
+                    { 
+                        text: "Reddet ve ders çalışmaya devam et", 
+                        gambling: false,
+                        result: "Harika! Sınavlarında başarılı olmak seni daha mutlu edecek."
+                    }
+                ]
+            },
+            {
+                text: "Bir oyun oynuyorsun, oyunda henüz yüksek bir puan toplayamadın ve şansını denemek için bir sandık satın alıyorsun. İlki boş çıktı. Son bir kez daha deneyeyim düşüncesiyle yine başka bir ürün satın alıyorsun ve o da boş çıkıyor. Ne yaparsın?",
+                choices: [
+                    { 
+                        text: "Daha fazla sandık satın al, mutlaka bir şey çıkar", 
+                        gambling: true,
+                        result: "100 TL kaybettin! Ganimet kutuları (loot box) kumarın dijital formudur ve kaybetme olasılığı her zaman daha yüksektir."
+                    },
+                    { 
+                        text: "Oyuna para harcamayı bırak ve oynamaya devam et", 
+                        gambling: false,
+                        result: "Akıllıca bir karar! Oyunları eğlence için oynamak en doğrusudur."
+                    }
+                ]
+            },
+            {
+                text: "Bir sitede dizi izlerken karşına bir bahis reklamı çıktı, reklama tıkladın ve oynadın. Para kaybettin. Bu durumu arkadaşlarına anlattın ve sana 'İlk kez oynadığın için kaybetmen normal, birkaç kez daha oyna.' dediler. Ne yaparsın?",
+                choices: [
+                    { 
+                        text: "Arkadaşlarının dediğini yap ve tekrar dene", 
+                        gambling: true,
+                        result: "150 TL kaybettin! Kumar reklamları ve 'ilk seferde kaybetme' algısı sizi daha fazla oynamaya teşvik etmek için tasarlanmıştır."
+                    },
+                    { 
+                        text: "Kumar reklamlarına tıklamamaya karar ver", 
+                        gambling: false,
+                        result: "Doğru karar! Kumar reklamlarından uzak durmak bağımlılıktan korunmanın en iyi yollarından biridir."
+                    }
+                ]
+            }
+        ];
+        let currentScenario = 0;
+        
+        // Quiz soruları
+        const quizQuestions = [
+            {
+                question: "Aşağıdakilerden hangisi kumar olarak kabul edilmez?",
+                options: [
+                    "Piyango bileti almak",
+                    "Arkadaşlarla para ödülü olmadan oyun oynamak",
+                    "Spor müsabakası sonucu üzerine bahse girmek",
+                    "Online oyunlarda ganimet kutusu (loot box) satın almak"
+                ],
+                correctAnswer: 1,
+                explanation: "Arkadaşlarla para ödülü olmadan oyun oynamak kumar değildir. Kumar, bir şey kazanmanın 'ihtimali' için para veya değerli bir şeyin riske atıldığı aktivitelerdir."
+            },
+            {
+                question: "Kumar bağımlılığının olumsuz sonuçları arasında aşağıdakilerden hangisi yer almaz?",
+                options: [
+                    "Alkol/madde bağımlılığı edinme olasılığını artırır",
+                    "Sosyal ilişkileri güçlendirir",
+                    "Sorumluluklarını yerine getiremez",
+                    "Maddi kayıp yaşayarak kendisine, ailesine ve çevresine zarar verir"
+                ],
+                correctAnswer: 1,
+                explanation: "Kumar bağımlılığı sosyal ilişkileri güçlendirmez, tam tersine kumara ayrılan zaman ve olumsuz sonuçları nedeniyle sosyal ilişkileri zarar görür."
+            },
+            {
+                question: "Kumar endüstrisinin gençlere yakınlaşmak için kullandığı yöntemler arasında aşağıdakilerden hangisi yer alır?",
+                options: [
+                    "Oyunların içinde gizlenen kumar ögeleri",
+                    "İnternet sitelerinde ve dizi/film platformlarında çıkan pop-up reklamlar",
+                    "Eğlence gibi görülmesi",
+                    "Hepsi"
+                ],
+                correctAnswer: 3,
+                explanation: "Kumar endüstrisi gençlere yakınlaşmak için tüm bu yöntemleri kullanır: oyunların içinde gizlenen kumar ögeleri, pop-up reklamlar ve kumarın eğlence gibi görülmesi."
+            },
+            {
+                question: "Kumar bağımlılığından korunmak için aşağıdakilerden hangisi yapılmalıdır?",
+                options: [
+                    "Kumar reklamlarına tıklamamak",
+                    "Oyunlardaki ganimet kutularına (loot box) para harcamamak",
+                    "Kumar oynayan arkadaşlarla zaman geçirmemek",
+                    "Hepsi"
+                ],
+                correctAnswer: 3,
+                explanation: "Kumar bağımlılığından korunmak için tüm bu önlemler alınmalıdır: kumar reklamlarına tıklamamak, ganimet kutularına para harcamamak ve kumar oynayan arkadaşlarla zaman geçirmemek."
+            }
+        ];
+        let currentQuestion = 0;
+        let quizScore = 0;
+        
+        // Dinamik bilgi mesajları
+        const dynamicInfoMessages = [
+            "Kumar bağımlılığı, kişinin hayatını olumsuz etkilemesine rağmen kumar oynamaya devam etmesidir.",
+            "Slot makinelerinin geri dönüş oranı genellikle %85-95 arasındadır, yani uzun vadede her 100 TL'nin 5-15 TL'si kumarhanede kalır.",
+            "Kumar endüstrisi gençlere yakınlaşmak için oyunlardan faydalanır.",
+            "Kumar oynama davranışının erken yaşta benimsenmesi bağımlı olma ihtimalini artırır.",
+            "Kumar bağımlılığı sosyal ve ruhsal anlamda birçok zarara neden olur.",
+            "Bahis şirketleri, oranları matematiksel modellerle belirler ve her maç için %5-15 kar marjı bırakır.",
+            "Online slot oyunlarının RTP (Return to Player) oranı genellikle %96 civarındadır.",
+            "Kumar bağımlılığının tedavisi mümkündür. Yardım almak için 171 Kumar Bağımlılığı Danışma Hattı'nı arayabilirsiniz.",
+            "Penaltı bahislerinde bile, bahis şirketleri uzun vadede her zaman kazançlı çıkar.",
+            "Kumar oynamak çok boyutlu bir problemdir. Sorun sadece para kaybetmekle sınırlı değildir.",
+            "Kumar bağımlılığı, alkol ve madde bağımlılığı ile benzer nörobiyolojik mekanizmalara sahiptir.",
+            "Kumar oynayan kişilerin yaklaşık %20'si bağımlılık geliştirme riski taşır.",
+            "Kumar bağımlılığı olan kişilerin intihar oranı, genel nüfusa göre 15 kat daha yüksektir.",
+            "Online kumar siteleri, oyuncuları daha fazla oynamaya teşvik etmek için psikolojik teknikler kullanır.",
+            "Kumar bağımlılığı tedavi edilebilir bir hastalıktır. Profesyonel yardım almak önemlidir."
+        ];
+        
+        // Sürekli mesajlar
+        const continuousMessages = [
+            "Kumar bağımlılığı ciddi bir sorundur. Yardım almak için 171'i arayabilirsiniz.",
+            "Kumar, kısa vadeli heyecan için uzun vadeli sorunlara yol açar.",
+            "Kaybettiklerinizi geri kazanma dürtüsü, kumar bağımlılığının en tehlikeli yanıdır.",
+            "Kumar bağımlılığı aileleri parçalayabilir ve finansal çöküşe neden olabilir.",
+            "Kumar oynamak stresi azaltmaz, aksine daha da artırır.",
+            "Kumar bağımlılığı bir zayıflık değil, tedavi edilebilir bir hastalıktır.",
+            "Kumar reklamlarından uzak durmak, bağımlılıktan korunmanın ilk adımıdır.",
+            "Kumar oynarken kaybettiğiniz para asla geri gelmeyecek, ama sağlığınızı ve ilişkilerinizi koruyabilirsiniz.",
+            "Kumar bağımlılığı, alkol ve madde bağımlılığı kadar ciddi bir sorundur.",
+            "Kumar oynama isteği geldiğinde, dikkatinizi başka bir aktiviteye yönlendirin.",
+            "Kumar bağımlılığı konusunda yardım istemek bir erdemdir.",
+            "Kumar, sorunlarınızdan kaçmak için bir çözüm değildir.",
+            "Kumar bağımlılığının erken belirtilerini fark etmek önemlidir.",
+            "Kumar oynama davranışınızı kontrol edemiyorsanız, profesyonel yardım alın.",
+            "Kumar bağımlılığı tedavisi için YEDAM (Yeşilay Danışmanlık Merkezi) 115'i arayabilirsiniz."
+        ];
+        
+        // Oyun modunu değiştir
+        function switchGameMode(mode) {
+            gameState.currentMode = mode;
+            
+            // Tüm modları gizle
+            document.getElementById('slotGame').style.display = 'none';
+            document.getElementById('pokerGame').style.display = 'none';
+            document.getElementById('footballGame').style.display = 'none';
+            document.getElementById('olympusGame').style.display = 'none';
+            document.getElementById('penaltyGame').style.display = 'none';
+            document.getElementById('scenarioGame').style.display = 'none';
+            document.getElementById('quizGame').style.display = 'none';
+            document.getElementById('educationGame').style.display = 'none';
+            
+            // Seçilen modu göster
+            document.getElementById(mode + 'Game').style.display = 'block';
+            
+            // Mod butonlarını güncelle
+            document.getElementById('slotModeBtn').classList.remove('active');
+            document.getElementById('pokerModeBtn').classList.remove('active');
+            document.getElementById('footballModeBtn').classList.remove('active');
+            document.getElementById('olympusModeBtn').classList.remove('active');
+            document.getElementById('penaltyModeBtn').classList.remove('active');
+            document.getElementById('scenarioModeBtn').classList.remove('active');
+            document.getElementById('quizModeBtn').classList.remove('active');
+            document.getElementById('educationModeBtn').classList.remove('active');
+            document.getElementById(mode + 'ModeBtn').classList.add('active');
+            
+            // Sonuç ekranını gizle
+            document.getElementById('resultDisplay').style.display = 'none';
+            
+            // Futbol bahis seçimlerini sıfırla
+            if (mode === 'football') {
+                document.querySelectorAll('.match-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                gameState.selectedFootballOption = null;
+            }
+            
+            // Senaryo modunda seçenekleri güncelle
+            if (mode === 'scenario') {
+                updateScenario();
+            }
+            
+            // Quiz modunda soruyu yükle
+            if (mode === 'quiz') {
+                loadQuestion();
+            }
+            
+            // Dinamik bilgi göster
+            showDynamicInfo();
+            updateContinuousMessage();
+        }
+        
+        // Dinamik bilgi göster
+        function showDynamicInfo() {
+            const dynamicInfo = document.getElementById('dynamicInfo');
+            dynamicInfo.style.display = 'block';
+            showRandomInfo();
+        }
+        
+        // Rastgele bilgi göster
+        function showRandomInfo() {
+            const randomIndex = Math.floor(Math.random() * dynamicInfoMessages.length);
+            document.getElementById('dynamicInfoContent').textContent = dynamicInfoMessages[randomIndex];
+            gameState.infoCount++;
+        }
+        
+        // Sürekli mesajı güncelle
+        function updateContinuousMessage() {
+            const randomIndex = Math.floor(Math.random() * continuousMessages.length);
+            document.getElementById('continuousMessage').textContent = continuousMessages[randomIndex];
+        }
+        
+        // Senaryoyu güncelle
+        function updateScenario() {
+            const scenario = scenarios[currentScenario];
+            document.getElementById('scenarioText').textContent = scenario.text;
+            document.getElementById('choice1').textContent = scenario.choices[0].text;
+            document.getElementById('choice2').textContent = scenario.choices[1].text;
+        }
+        
+        // Quiz sorusunu yükle
+        function loadQuestion() {
+            if (currentQuestion < quizQuestions.length) {
+                const question = quizQuestions[currentQuestion];
+                document.getElementById('quizQuestion').textContent = question.question;
+                
+                const optionsContainer = document.getElementById('quizOptions');
+                optionsContainer.innerHTML = '';
+                
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'quiz-option';
+                    optionElement.textContent = option;
+                    optionElement.onclick = () => checkAnswer(index);
+                    optionsContainer.appendChild(optionElement);
+                });
+                
+                document.getElementById('quizResult').style.display = 'none';
+                document.getElementById('nextQuestionBtn').style.display = 'none';
+            } else {
+                // Quiz bitti
+                document.getElementById('quizQuestion').textContent = `Quiz tamamlandı! ${quizScore}/${quizQuestions.length} doğru cevap.`;
+                document.getElementById('quizOptions').innerHTML = '';
+                document.getElementById('quizResult').style.display = 'none';
+                document.getElementById('nextQuestionBtn').style.display = 'none';
+                
+                // Kazanç ekle (quiz başarısına göre)
+                const winAmount = quizScore * 50;
+                gameState.money += winAmount;
+                gameState.totalWin += winAmount;
+                showResult(true, winAmount, `Quiz tamamlandı! ${quizScore} doğru cevap için ${winAmount} TL kazandınız.`);
+            }
+        }
+        
+        // Quiz cevabını kontrol et
+        function checkAnswer(selectedIndex) {
+            const question = quizQuestions[currentQuestion];
+            const resultElement = document.getElementById('quizResult');
+            
+            if (selectedIndex === question.correctAnswer) {
+                resultElement.textContent = `Doğru! ${question.explanation}`;
+                resultElement.className = 'quiz-result quiz-correct';
+                playSound('correctSound');
+                quizScore++;
+            } else {
+                resultElement.textContent = `Yanlış! Doğru cevap: ${question.options[question.correctAnswer]}. ${question.explanation}`;
+                resultElement.className = 'quiz-result quiz-incorrect';
+                playSound('wrongSound');
+            }
+            
+            resultElement.style.display = 'block';
+            document.getElementById('nextQuestionBtn').style.display = 'block';
+            
+            // Tüm seçeneklere tıklanmasını engelle
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.onclick = null;
+                option.style.opacity = '0.6';
+            });
+        }
+        
+        // Sonraki quiz sorusuna geç
+        function nextQuestion() {
+            currentQuestion++;
+            loadQuestion();
+        }
+        
+        // Slot için bahis miktarını değiştir
+        function changeBet(amount) {
+            gameState.slotBet += amount;
+            if (gameState.slotBet < 10) gameState.slotBet = 10;
+            if (gameState.slotBet > 500) gameState.slotBet = 500;
+            if (gameState.slotBet > gameState.money) gameState.slotBet = gameState.money;
+            document.getElementById('slotBetAmount').textContent = gameState.slotBet + ' ₺';
+        }
+        
+        // Poker için bahis miktarını değiştir
+        function changePokerBet(amount) {
+            gameState.pokerBet += amount;
+            if (gameState.pokerBet < 25) gameState.pokerBet = 25;
+            if (gameState.pokerBet > 1000) gameState.pokerBet = 1000;
+            if (gameState.pokerBet > gameState.money) gameState.pokerBet = gameState.money;
+            document.getElementById('pokerBetAmount').textContent = gameState.pokerBet + ' ₺';
+        }
+        
+        // Futbol için bahis miktarını değiştir
+        function changeFootballBet(amount) {
+            gameState.footballBet += amount;
+            if (gameState.footballBet < 25) gameState.footballBet = 25;
+            if (gameState.footballBet > 1000) gameState.footballBet = 1000;
+            if (gameState.footballBet > gameState.money) gameState.footballBet = gameState.money;
+            document.getElementById('footballBetAmount').textContent = gameState.footballBet + ' ₺';
+        }
+        
+        // Olympus için bahis miktarını değiştir
+        function changeOlympusBet(amount) {
+            gameState.olympusBet += amount;
+            if (gameState.olympusBet < 10) gameState.olympusBet = 10;
+            if (gameState.olympusBet > 500) gameState.olympusBet = 500;
+            if (gameState.olympusBet > gameState.money) gameState.olympusBet = gameState.money;
+            document.getElementById('olympusBetAmount').textContent = gameState.olympusBet + ' ₺';
+        }
+        
+        // Penaltı için bahis miktarını değiştir
+        function changePenaltyBet(amount) {
+            gameState.penaltyBet += amount;
+            if (gameState.penaltyBet < 25) gameState.penaltyBet = 25;
+            if (gameState.penaltyBet > 1000) gameState.penaltyBet = 1000;
+            if (gameState.penaltyBet > gameState.money) gameState.penaltyBet = gameState.money;
+            document.getElementById('penaltyBetAmount').textContent = gameState.penaltyBet + ' ₺';
+        }
+        
+        // Futbol bahis seçeneğini seç
+        function selectFootballOption(index) {
+            document.querySelectorAll('.match-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.getElementById('option' + (index + 1)).classList.add('selected');
+            gameState.selectedFootballOption = index;
+        }
+        
+        // Slot oyna
+        function playSlot() {
+            if (gameState.money < gameState.slotBet) {
+                updateContinuousMessage();
+                document.getElementById('continuousMessage').textContent = "Yeterli paranız yok! Kumar oynamaya devam etmek finansal sorunlara yol açar.";
+                return;
+            }
+            
+            // Bahsi düş
+            gameState.money -= gameState.slotBet;
+            gameState.totalLoss += gameState.slotBet;
+            gameState.gameCount++;
+            
+            // Slot makinesini döndür
+            const reel1 = document.getElementById('reel1');
+            const reel2 = document.getElementById('reel2');
+            const reel3 = document.getElementById('reel3');
+            
+            // Slot dönüş sesi
+            playSound('slotSpinSound');
+            
+            // Döndürme efekti
+            let spins = 0;
+            const spinInterval = setInterval(() => {
+                reel1.textContent = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+                reel2.textContent = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+                reel3.textContent = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+                spins++;
+                
+                if (spins > 10) {
+                    clearInterval(spinInterval);
+                    
+                    // Sonuçları belirle (gerçekçi oranlarla)
+                    const result1 = getWeightedSymbol();
+                    const result2 = getWeightedSymbol();
+                    const result3 = getWeightedSymbol();
+                    
+                    reel1.textContent = result1;
+                    reel2.textContent = result2;
+                    reel3.textContent = result3;
+                    
+                    // Kazançları hesapla
+                    const resultString = result1 + result2 + result3;
+                    let winAmount = 0;
+                    
+                    if (slotPayouts[resultString]) {
+                        winAmount = gameState.slotBet * slotPayouts[resultString];
+                        gameState.money += winAmount;
+                        gameState.totalWin += winAmount;
+                        playSound('slotWinSound');
+                    } else {
+                        playSound('slotLoseSound');
+                    }
+                    
+                    // Sonucu göster
+                    showResult(winAmount > 0, winAmount, "Slot Makinesi: " + resultString);
+                    
+                    // İlerlemeyi güncelle
+                    updateProgress();
+                    
+                    // Oyun bitti mi kontrol et
+                    checkGameOver();
+                    
+                    // Dinamik bilgi göster
+                    showRandomInfo();
+                    updateContinuousMessage();
+                }
+            }, 100);
+        }
+        
+        // Ağırlıklı slot sembolü seç (daha düşük kazanç şansı)
+        function getWeightedSymbol() {
+            const rand = Math.random() * 100;
+            if (rand < 40) return '🍒';
+            if (rand < 65) return '🍋';
+            if (rand < 80) return '🍊';
+            if (rand < 90) return '🍇';
+            if (rand < 95) return '🔔';
+            if (rand < 98) return '⭐';
+            return '7️⃣';
+        }
+        
+        // Poker oyna
+        function playPoker() {
+            if (gameState.money < gameState.pokerBet) {
+                updateContinuousMessage();
+                document.getElementById('continuousMessage').textContent = "Yeterli paranız yok! Kumar oynamaya devam etmek finansal sorunlara yol açar.";
+                return;
+            }
+            
+            // Bahsi düş
+            gameState.money -= gameState.pokerBet;
+            gameState.totalLoss += gameState.pokerBet;
+            gameState.gameCount++;
+            
+            // Poker kartlarını aç
+            const cards = [
+                document.getElementById('card1'),
+                document.getElementById('card2'),
+                document.getElementById('card3'),
+                document.getElementById('card4'),
+                document.getElementById('card5')
+            ];
+            
+            // Kartları karıştırma efekti
+            let reveals = 0;
+            const revealInterval = setInterval(() => {
+                for (let i = 0; i < cards.length; i++) {
+                    if (i <= reveals) {
+                        // Gerçekçi poker eli oluştur
+                        cards[i].textContent = getPokerCard();
+                        // Kart açılma sesi
+                        playSound('cardFlipSound');
+                    } else {
+                        cards[i].textContent = '?';
+                    }
+                }
+                reveals++;
+                
+                if (reveals > cards.length) {
+                    clearInterval(revealInterval);
+                    
+                    // Poker elini değerlendir ve kazancı hesapla
+                    const hand = evaluatePokerHand();
+                    const winAmount = gameState.pokerBet * hand.multiplier;
+                    
+                    if (winAmount > 0) {
+                        gameState.money += winAmount;
+                        gameState.totalWin += winAmount;
+                        playSound('pokerWinSound');
+                    } else {
+                        playSound('pokerLoseSound');
+                    }
+                    
+                    // Sonucu göster
+                    showResult(winAmount > 0, winAmount, "Poker: " + hand.name + (winAmount > 0 ? " (" + hand.multiplier + "x)" : ""));
+                    
+                    // İlerlemeyi güncelle
+                    updateProgress();
+                    
+                    // Oyun bitti mi kontrol et
+                    checkGameOver();
+                    
+                    // Dinamik bilgi göster
+                    showRandomInfo();
+                    updateContinuousMessage();
+                }
+            }, 500);
+        }
+        
+        // Poker kartı oluştur
+        function getPokerCard() {
+            const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+            const suits = ['♠', '♥', '♦', '♣'];
+            return values[Math.floor(Math.random() * values.length)] + suits[Math.floor(Math.random() * suits.length)];
+        }
+        
+        // Poker elini değerlendir (gerçekçi olasılıklarla)
+        function evaluatePokerHand() {
+            // Gerçekçi olasılıklara dayalı rastgele el oluştur
+            const rand = Math.random() * 100;
+            let cumulativeProb = 0;
+            
+            for (const hand of pokerHands) {
+                cumulativeProb += hand.probability;
+                if (rand <= cumulativeProb) {
+                    return hand;
+                }
+            }
+            
+            // Hiçbir el yoksa kaybet
+            return pokerHands[0];
+        }
+        
+        // Futbol bahsi oyna
+        function playFootball() {
+            if (gameState.selectedFootballOption === null) {
+                updateContinuousMessage();
+                document.getElementById('continuousMessage').textContent = "Lütfen bir tahmin seçin! Spor bahisleri tahmin edilmesi zor sonuçlara sahiptir.";
+                return;
+            }
+            
+            if (gameState.money < gameState.footballBet) {
+                updateContinuousMessage();
+                document.getElementById('continuousMessage').textContent = "Yeterli paranız yok! Kumar oynamaya devam etmek finansal sorunlara yol açar.";
+                return;
+            }
+            
+            // Bahsi düş
+            gameState.money -= gameState.footballBet;
+            gameState.totalLoss += gameState.footballBet;
+            gameState.gameCount++;
+            
+            // Stadyum sesi
+            playSound('crowdSound');
+            
+            // Maç sonucunu belirle (gerçekçi oranlarla)
+            const outcomes = [
+                { name: "Galatasaray Kazandı", odds: 2.5, probability: 38 },
+                { name: "Beraberlik", odds: 3.2, probability: 30 },
+                { name: "Fenerbahçe Kazandı", odds: 2.7, probability: 32 }
+            ];
+            
+            // Gerçekçi sonuç oluştur
+            const rand = Math.random() * 100;
+            let cumulativeProb = 0;
+            let actualOutcome = 0;
+            
+            for (let i = 0; i < outcomes.length; i++) {
+                cumulativeProb += outcomes[i].probability;
+                if (rand <= cumulativeProb) {
+                    actualOutcome = i;
+                    break;
+                }
+            }
+            
+            // Kazançları hesapla
+            let winAmount = 0;
+            if (gameState.selectedFootballOption === actualOutcome) {
+                winAmount = gameState.footballBet * outcomes[actualOutcome].odds;
+                gameState.money += winAmount;
+                gameState.totalWin += winAmount;
+                playSound('goalSound');
+            } else {
+                playSound('missSound');
+            }
+            
+            // Düdük sesi
+            setTimeout(() => playSound('whistleSound'), 500);
+            
+            // Sonucu göster
+            const selectedName = outcomes[gameState.selectedFootballOption].name;
+            const actualName = outcomes[actualOutcome].name;
+            showResult(winAmount > 0, winAmount, `Futbol Bahsi: ${selectedName} seçtiniz, sonuç: ${actualName}`);
+            
+            // Seçimi sıfırla
+            document.querySelectorAll('.match-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            gameState.selectedFootballOption = null;
+            
+            // İlerlemeyi güncelle
+            updateProgress();
+            
+            // Oyun bitti mi kontrol et
+            checkGameOver();
+            
+            // Dinamik bilgi göster
+            showRandomInfo();
+            updateContinuousMessage();
+        }
+        
+        // Gates of Olympus oyna
+        function playOlympus() {
+            if (gameState.money < gameState.olympusBet) {
+                updateContinuousMessage();
+                document.getElementById('continuousMessage').textContent = "Yeterli paranız yok! Kumar oynamaya devam etmek finansal sorunlara yol açar.";
+                return;
+            }
+            
+            // Bahsi düş
+            gameState.money -= gameState.olympusBet;
+            gameState.totalLoss += gameState.olympusBet;
+            gameState.gameCount++;
+            
+            // Olympus slotlarını döndür
+            const reels = [
+                document.getElementById('olympusReel1'),
+                document.getElementById('olympusReel2'),
+                document.getElementById('olympusReel3'),
+                document.getElementById('olympusReel4'),
+                document.getElementById('olympusReel5'),
+                document.getElementById('olympusReel6')
+            ];
+            
+            // Gök gürültüsü sesi
+            playSound('thunderSound');
+            
+            // Döndürme efekti
+            let spins = 0;
+            const spinInterval = setInterval(() => {
+                for (let i = 0; i < reels.length; i++) {
+                    reels[i].textContent = olympusSymbols[Math.floor(Math.random() * olympusSymbols.length)];
+                }
+                spins++;
+                
+                if (spins > 15) {
+                    clearInterval(spinInterval);
+                    
+                    // Sonuçları belirle (gerçekçi oranlarla)
+                    const results = [];
+                    for (let i = 0; i < reels.length; i++) {
+                        results.push(getWeightedOlympusSymbol());
+                    }
+                    
+                    for (let i = 0; i < reels.length; i++) {
+                        reels[i].textContent = results[i];
+                    }
+                    
+                    // Kazançları hesapla
+                    let winAmount = 0;
+                    const symbolCounts = {};
+                    
+                    for (const symbol of results) {
+                        symbolCounts[symbol] = (symbolCounts[symbol] || 0) + 1;
+                    }
+                    
+                    for (const symbol in symbolCounts) {
+                        const count = symbolCounts[symbol];
+                        const key = symbol.repeat(count);
+                        if (olympusPayouts[key]) {
+                            winAmount += gameState.olympusBet * olympusPayouts[key];
+                        }
+                    }
+                    
+                    if (winAmount > 0) {
+                        gameState.money += winAmount;
+                        gameState.totalWin += winAmount;
+                        playSound('olympusWinSound');
+                    } else {
+                        playSound('olympusLoseSound');
+                    }
+                    
+                    // Sonucu göster
+                    showResult(winAmount > 0, winAmount, "Gates of Olympus: " + results.join(' '));
+                    
+                    // İlerlemeyi güncelle
+                    updateProgress();
+                    
+                    // Oyun bitti mi kontrol et
+                    checkGameOver();
+                    
+                    // Dinamik bilgi göster
+                    showRandomInfo();
+                    updateContinuousMessage();
+                }
+            }, 100);
+        }
+        
+        // Ağırlıklı Olympus sembolü seç
+        function getWeightedOlympusSymbol() {
+            const rand = Math.random() * 100;
+            if (rand < 35) return '⚡';
+            if (rand < 60) return '🔥';
+            if (rand < 75) return '🌊';
+            if (rand < 85) return '🌪️';
+            if (rand < 92) return '🏛️';
+            if (rand < 97) return '👑';
+            return '⚜️';
+        }
+        
+        // Penaltı atışı yap
+        function takePenalty(direction) {
+            if (gameState.money < gameState.penaltyBet) {
+                updateContinuousMessage();
+                document.getElementById('continuousMessage').textContent = "Yeterli paranız yok! Kumar oynamaya devam etmek finansal sorunlara yol açar.";
+                return;
+            }
+            
+            // Bahsi düş
+            gameState.money -= gameState.penaltyBet;
+            gameState.totalLoss += gameState.penaltyBet;
+            gameState.gameCount++;
+            
+            const goalkeeper = document.getElementById('goalkeeper');
+            const ball = document.getElementById('ball');
+            
+            // Kalabalık sesi
+            playSound('crowdSound');
+            
+            // Kaleci %90 ihtimalle kullanıcının seçtiği yöne atlar
+            let goalkeeperDirection;
+            const randomValue = Math.random();
+            if (randomValue < 0.9) {
+                // %90 ihtimalle kullanıcının seçtiği yöne atlar
+                goalkeeperDirection = direction;
+            } else {
+                // %10 ihtimalle rastgele başka bir yöne atlar
+                const directions = ['left', 'center', 'right'];
+                // Kullanıcının seçtiği yönü çıkarıp, diğer iki yönden birini seç
+                const otherDirections = directions.filter(d => d !== direction);
+                goalkeeperDirection = otherDirections[Math.floor(Math.random() * otherDirections.length)];
+            }
+            
+            // Kaleci animasyonu
+            goalkeeper.style.transition = 'all 0.5s ease';
+            if (goalkeeperDirection === 'left') {
+                goalkeeper.style.left = '30%';
+            } else if (goalkeeperDirection === 'right') {
+                goalkeeper.style.left = '70%';
+            } else {
+                goalkeeper.style.left = '50%';
+            }
+            
+            // Top animasyonu
+            setTimeout(() => {
+                ball.style.transition = 'all 0.8s ease';
+                
+                if (direction === 'left') {
+                    ball.style.left = '25%';
+                    ball.style.bottom = '75%';
+                } else if (direction === 'right') {
+                    ball.style.left = '75%';
+                    ball.style.bottom = '75%';
+                } else {
+                    ball.style.left = '50%';
+                    ball.style.bottom = '80%';
+                }
+                
+                // Top vuruş sesi
+                playSound('kickSound');
+                
+                // Sonucu belirle
+                setTimeout(() => {
+                    let isGoal = (goalkeeperDirection !== direction);
+                    
+                    let winAmount = 0;
+                    if (isGoal) {
+                        winAmount = gameState.penaltyBet * 1.5; // 1.5x kazanç
+                        gameState.money += winAmount;
+                        gameState.totalWin += winAmount;
+                        playSound('penaltyGoalSound');
+                    } else {
+                        playSound('penaltySaveSound');
+                    }
+                    
+                    // Sonucu göster
+                    showResult(isGoal, winAmount, `Penaltı: ${isGoal ? 'Gol!' : 'Kaleci topu kurtardı!'} (Siz: ${direction}, Kaleci: ${goalkeeperDirection})`);
+                    
+                    // İlerlemeyi güncelle
+                    updateProgress();
+                    
+                    // Oyun bitti mi kontrol et
+                    checkGameOver();
+                    
+                    // Dinamik bilgi göster
+                    showRandomInfo();
+                    updateContinuousMessage();
+                    
+                    // Reset
+                    setTimeout(() => {
+                        goalkeeper.style.transition = 'all 0.3s ease';
+                        goalkeeper.style.left = '50%';
+                        ball.style.transition = 'all 0.3s ease';
+                        ball.style.left = '50%';
+                        ball.style.bottom = '30px';
+                    }, 1500);
+                }, 800);
+            }, 500);
+        }
+        
+        // Rastgele penaltı atışı yap
+        function takeRandomPenalty() {
+            const directions = ['left', 'center', 'right'];
+            const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+            takePenalty(randomDirection);
+        }
+        
+        // Senaryo modunda seçim yap
+        function makeChoice(choiceIndex) {
+            const scenario = scenarios[currentScenario];
+            const choice = scenario.choices[choiceIndex];
+            
+            if (choice.gambling) {
+                // Kumar seçeneği - rastgele kayıp veya küçük kazanç
+                const rand = Math.random();
+                if (rand < 0.7) { // %70 kaybetme şansı
+                    const loss = Math.floor(Math.random() * 50) + 10;
+                    gameState.money -= loss;
+                    gameState.totalLoss += loss;
+                    playSound('negativeSound');
+                    showResult(false, loss, choice.result);
+                } else { // %30 küçük kazanç şansı
+                    const win = Math.floor(Math.random() * 30) + 10;
+                    gameState.money += win;
+                    gameState.totalWin += win;
+                    playSound('positiveSound');
+                    showResult(true, win, "Kazandın! " + win + " TL kazandın. Ama unutma, bu sadece şans!");
+                }
+            } else {
+                // Kumar olmayan seçenek - küçük kazanç
+                const win = Math.floor(Math.random() * 20) + 5;
+                gameState.money += win;
+                gameState.totalWin += win;
+                playSound('positiveSound');
+                showResult(true, win, choice.result);
+            }
+            
+            gameState.gameCount++;
+            
+            // Sonraki senaryoya geç
+            currentScenario++;
+            if (currentScenario >= scenarios.length) {
+                currentScenario = 0;
+            }
+            
+            // Senaryoyu güncelle
+            updateScenario();
+            
+            // İlerlemeyi güncelle
+            updateProgress();
+            
+            // Oyun bitti mi kontrol et
+            checkGameOver();
+            
+            // Dinamik bilgi göster
+            showRandomInfo();
+            updateContinuousMessage();
+        }
+        
+        // Sonucu göster
+        function showResult(isWin, amount, message) {
+            const resultDisplay = document.getElementById('resultDisplay');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultText = document.getElementById('resultText');
+            
+            if (isWin) {
+                resultTitle.textContent = 'Tebrikler! Kazandın!';
+                resultTitle.className = 'result-title win';
+                resultText.textContent = `${amount} ₺ kazandın! ${message}`;
+            } else {
+                resultTitle.textContent = 'Üzgünüm! Kaybettin!';
+                resultTitle.className = 'result-title loss';
+                resultText.textContent = `${amount} ₺ kaybettin. ${message}`;
+            }
+            
+            resultDisplay.style.display = 'block';
+            
+            // Geçmişe ekle
+            const historyList = document.getElementById('historyList');
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            historyItem.textContent = `${isWin ? '+' : '-'}${amount} ₺ - ${message}`;
+            historyList.appendChild(historyItem);
+            historyList.scrollTop = historyList.scrollHeight;
+            
+            // İstatistikleri güncelle
+            updateStats();
+        }
+        
+        // İstatistikleri güncelle
+        function updateStats() {
+            document.getElementById('money').textContent = gameState.money + ' ₺';
+            document.getElementById('totalWin').textContent = gameState.totalWin + ' ₺';
+            document.getElementById('totalLoss').textContent = gameState.totalLoss + ' ₺';
+            document.getElementById('gameCount').textContent = gameState.gameCount;
+        }
+        
+        // İlerlemeyi güncelle
+        function updateProgress() {
+            const progress = (1 - (gameState.money / 1000)) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+        
+        // Oyun bitti mi kontrol et
+        function checkGameOver() {
+            if (gameState.money <= 0) {
+                gameState.gameOver = true;
+                document.getElementById('gameArea').style.display = 'none';
+                document.getElementById('endScreen').style.display = 'block';
+                
+                document.getElementById('finalWin').textContent = gameState.totalWin + ' ₺';
+                document.getElementById('finalLoss').textContent = gameState.totalLoss + ' ₺';
+                document.getElementById('netResult').textContent = (gameState.totalWin - gameState.totalLoss) + ' ₺';
+                document.getElementById('finalGameCount').textContent = gameState.gameCount;
+                
+                // Oyun bitti sesi
+                playSound('gameOverSound');
+                
+                if (gameState.totalWin > 0) {
+                    document.getElementById('endMessage').textContent = `Toplamda ${gameState.totalWin} ₺ kazanmış olsan da, sonunda paramın tamamını kaybettin. Bu, kumarın gerçek yüzünü gösteriyor - kısa vadeli kazançlar uzun vadeli kayıplara yol açar.`;
+                }
+            }
+        }
+        
+        // Oyunu yeniden başlat
+        function restartGame() {
+            gameState.money = 1000;
+            gameState.totalWin = 0;
+            gameState.totalLoss = 0;
+            gameState.gameCount = 0;
+            gameState.gameOver = false;
+            currentScenario = 0;
+            currentQuestion = 0;
+            quizScore = 0;
+            gameState.infoCount = 0;
+            
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('endScreen').style.display = 'none';
+            document.getElementById('resultDisplay').style.display = 'none';
+            document.getElementById('historyList').innerHTML = '';
+            
+            // Slot makinesini sıfırla
+            document.getElementById('reel1').textContent = '?';
+            document.getElementById('reel2').textContent = '?';
+            document.getElementById('reel3').textContent = '?';
+            
+            // Poker kartlarını sıfırla
+            const cards = document.querySelectorAll('.poker-card');
+            cards.forEach(card => {
+                card.textContent = '?';
+            });
+            
+            // Olympus slotlarını sıfırla
+            const olympusReels = document.querySelectorAll('.olympus-reel');
+            olympusReels.forEach(reel => {
+                reel.textContent = '⚡';
+            });
+            
+            // Penaltı alanını sıfırla
+            const goalkeeper = document.getElementById('goalkeeper');
+            const ball = document.getElementById('ball');
+            goalkeeper.style.left = '50%';
+            ball.style.left = '50%';
+            ball.style.bottom = '30px';
+            
+            // Senaryoyu sıfırla
+            updateScenario();
+            
+            // Futbol seçimlerini sıfırla
+            document.querySelectorAll('.match-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            gameState.selectedFootballOption = null;
+            
+            updateStats();
+            updateProgress();
+            updateContinuousMessage();
+        }
+        
+        // Sayfa yüklendiğinde istatistikleri güncelle
+        window.onload = function() {
+            updateStats();
+            showDynamicInfo();
+            updateContinuousMessage();
+            
+            // Her 10 saniyede bir mesajı güncelle
+            setInterval(updateContinuousMessage, 10000);
+        };
+    </script>
+<script>
+  // Service Worker Kaydı
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(function(registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+  }
+<script>
+  // Service Worker Kaydı - GÜNCELLENMİŞ VERSİYON
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      // GitHub Pages için doğru yol
+      const swPath = window.location.pathname.includes('github.io') 
+        ? '/kumar-tuzagi/service-worker.js' 
+        : '/service-worker.js';
+      
+      navigator.serviceWorker.register(swPath)
+        .then(function(registration) {
+          console.log('ServiceWorker başarıyla kaydedildi: ', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('ServiceWorker kaydı başarısız: ', error);
+        });
+    });
+  }
+
+  // SES SORUNU ÇÖZÜMÜ - Tarayıcı politikaları için
+  document.addEventListener('click', function() {
+    // Sayfaya tıklandığında sesleri etkinleştir
+    if (!window.audioContext) {
+      window.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+  }, { once: true });
+
+  // Otomatik ses etkinleştirme
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (typeof activateSounds === 'function') {
+        activateSounds();
+      }
+    }, 1000);
+  });
+</script>
+</body>
+</html>
